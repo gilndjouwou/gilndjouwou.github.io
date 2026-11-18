@@ -1,5 +1,5 @@
 export const SITE_TITLE = 'Gil Ndjouwou';
-export const SITE_DESCRIPTION = 'Gil is a graphic designer, building brand identities through art direction and motion graphics. He is based in Marseille, France.';
+export const SITE_DESCRIPTION = 'Gil Ndjouwou - brand design, graphic design, arti direction';
 export const SITE_URL = 'https://gilndjouwou.github.io';
 
 export const PORTRAIT: { light: string; dark?: string } | undefined = {
