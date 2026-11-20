@@ -1,11 +1,18 @@
 ---
 import { LINKS } from '@/consts';
+
+const isContact = (href: string) => /^(mailto|tel):/.test(href);
 ---
 
 <footer>
   <span>
     [↗]: {LINKS.map(({ label, href }) => (
-      <><a target='_blank' rel='me' href={href}>{label}</a>, </>
+      <><a
+        target={isContact(href) ? undefined : '_blank'}
+        rel={isContact(href) ? undefined : 'me'}
+        href={href}
+        data-obfuscation={isContact(href) ? '1' : undefined}
+      >{label}</a>, </>
     ))}<a target='_blank' href='/rss.xml'>RSS</a>
   </span>
 </footer>

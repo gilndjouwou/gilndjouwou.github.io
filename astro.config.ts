@@ -5,9 +5,11 @@ import mdx from "@astrojs/mdx";
 
 import { SITE_URL } from "./src/consts";
 
+import mailObfuscation from "astro-mail-obfuscation";
+
 export default defineConfig({
   site: SITE_URL,
-  integrations: [sitemap(), mdx()],
+  integrations: [sitemap(), mdx(), mailObfuscation()],
   markdown: {
     shikiConfig: { theme: "css-variables" }
   }

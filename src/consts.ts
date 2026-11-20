@@ -9,6 +9,7 @@ export const PORTRAIT: { light: string; dark?: string } | undefined = {
 
 export const LINKS = [
   { label: 'Email', href: 'mailto:gilndjouwou@gmail.com' },
+  { label: 'Telephone', href: 'tel:+330758579382' },
   { label: 'Instagram', href: 'https://instagram.com/giljuwu' },
   { label: 'Linkedin', href: 'https://www.linkedin.com/in/gilndjouwou/' },
 ];
