@@ -22,7 +22,7 @@ export const GET: APIRoute = async () => {
         const htmlContent = await container.renderToString(Content);
 
         return {
-          link: `notes/${note.id}`,
+          link: `${note.data.category}/${note.id}`,
           title: note.data.title,
           description: note.data.description,
           pubDate: note.data.pubDate,

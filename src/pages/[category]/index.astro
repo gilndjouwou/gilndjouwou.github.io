@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import EntryList from '@/components/EntryList.astro';
+import { CATEGORIES, CATEGORY_LABELS, type CategorySlug } from '@/lib/categories';
+
+interface Props {
+  category: CategorySlug;
+}
+
+export function getStaticPaths() {
+  return CATEGORIES.map(({ slug }) => ({
+    params: { category: slug },
+    props: { category: slug },
+  }));
+}
+
+const { category } = Astro.props;
+---
+
+<BaseLayout headProps={{ title: CATEGORY_LABELS[category], image: `/og/${category}.png` }}>
+  <h1>{CATEGORY_LABELS[category]}</h1>
+  <EntryList {category} />
+</BaseLayout>
+
+<style>
+  h1 {
+    margin-bottom: 1.5em;
+    font-size: 1.5em;
+  }
+</style>

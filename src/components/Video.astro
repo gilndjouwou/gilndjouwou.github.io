@@ -1,0 +1,24 @@
+---
+export interface Props {
+  src: string;
+  title: string;
+  poster?: string;
+}
+
+const { src, title, poster } = Astro.props;
+---
+
+<video controls playsinline preload="metadata" aria-label={title} {poster}>
+  <source src={src} />
+  Your browser does not support HTML video.
+</video>
+
+<style>
+  video {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-block: 1.5em;
+    background: var(--theme-code-block);
+  }
+</style>

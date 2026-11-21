@@ -5,7 +5,7 @@ import NoteHeader from '@/components/NoteHeader.astro';
 import NoteNav from '@/components/NoteNav.astro';
 
 const {
-  frontmatter: { title, description, pubDate, updatedDate },
+  frontmatter: { title, description, category, pubDate, updatedDate },
   image,
   prev,
   next,
@@ -13,7 +13,7 @@ const {
 ---
 
 <BaseLayout headProps={{ title, description, image }}>
-  <NoteHeader {title} {pubDate} {updatedDate} />
+  <NoteHeader {title} {category} {pubDate} {updatedDate} />
 
   <article>
     <slot />
@@ -57,10 +57,18 @@ const {
       height: auto;
     }
 
+    :global(video) {
+      max-width: 100%;
+    }
+
     :global(figcaption) {
       color: var(--theme-sub-text);
       font-size: 0.9em;
       line-height: 1.4;
+    }
+
+    :global(figure) {
+      margin-block: 1.5em;
     }
 
     :global(blockquote) {

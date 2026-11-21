@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { CATEGORY_SLUGS } from '@/lib/categories';
 
 // A `slug` in frontmatter overrides the entry id, which is the note's URL
 const notes = defineCollection({
@@ -11,9 +12,12 @@ const notes = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    category: z.enum(CATEGORY_SLUGS),
     pubDate: z.coerce.date(),
+    position: z.number().int().optional(),
     updatedDate: z.coerce.date().optional(),
     published: z.boolean().default(false),
+    archived: z.boolean().default(false),
   }),
 });
 

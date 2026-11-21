@@ -1,5 +1,6 @@
 ---
 import Portrait from '@/components/Portrait.astro';
+import { CATEGORIES } from '@/lib/categories';
 import { PORTRAIT, SITE_TITLE } from '@/consts';
 
 export interface Props {
@@ -10,38 +11,53 @@ const { title } = Astro.props;
 ---
 
 <header>
-  {title ? (
-    <h1>
-      {title === SITE_TITLE && PORTRAIT ? <Portrait {...PORTRAIT} /> : <a href='/'>{title}</a>}
-    </h1>
+  {title === SITE_TITLE && PORTRAIT ? (
+    <h1><Portrait {...PORTRAIT} /></h1>
   ) : (
-    <a class='back' href='/'><span aria-hidden='true'>↩</span>Index</a>
+    <a class="home" href="/">Home</a>
+  )}
+
+  {title !== SITE_TITLE && (
+    <nav aria-label="Portfolio categories">
+      {CATEGORIES.map(({ slug, title: categoryTitle }) => (
+        <a href={`/${slug}/`}>{categoryTitle}</a>
+      ))}
+    </nav>
   )}
 </header>
 
 <style>
+  header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2em;
+  }
+
   h1 {
     font-size: 1em;
   }
 
-  a {
+  .home,
+  nav a {
     color: var(--theme-sub-text);
-
-    &:hover {
-      color: var(--theme-sub-text);
-    }
-
-    &:focus-visible {
-      color: var(--theme-bg);
-    }
   }
 
-  h1 a {
-    text-decoration: none;
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5em 1.5em;
   }
 
-  .back span {
-    display: inline-block;
-    margin-inline-end: 1ch;
+  @media (width <= 600px) {
+    header {
+      flex-direction: column;
+      gap: 1.5em;
+    }
+
+    nav {
+      justify-content: flex-start;
+    }
   }
 </style>

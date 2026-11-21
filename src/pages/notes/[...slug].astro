@@ -1,20 +1,17 @@
 ---
-import { render } from 'astro:content';
-import NoteLayout from '@/layouts/NoteLayout.astro';
-import { getNotes } from '@/lib/notes';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const notes = await getNotes();
-  return notes.map((note, i) => ({
+  const notes = await getCollection('notes');
+  return notes.map((note) => ({
     params: { slug: note.id },
-    props: { note, prev: notes[i - 1], next: notes[i + 1] },
+    props: { note },
   }));
 }
 
-const { note, prev, next } = Astro.props;
-const { Content } = await render(note);
+const { note } = Astro.props;
+const redirectTo = note.data.archived
+  ? `/${note.data.category}/`
+  : `/${note.data.category}/${note.id}/`;
+return Astro.redirect(redirectTo, 301);
 ---
-
-<NoteLayout frontmatter={note.data} image={`/og/${note.id}.png`} {prev} {next}>
-  <Content />
-</NoteLayout>

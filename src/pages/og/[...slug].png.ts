@@ -5,6 +5,7 @@ import sharp from 'sharp';
 
 import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts';
 import { getNotes } from '@/lib/notes';
+import { CATEGORIES } from '@/lib/categories';
 
 const font = await readFile('public/fonts/IBMPlexMono-Regular.woff2');
 
@@ -12,7 +13,11 @@ export const getStaticPaths = (async () => {
   const notes = await getNotes();
   return [
     { params: { slug: 'index' }, props: { title: SITE_DESCRIPTION } },
-    { params: { slug: 'notes' }, props: { title: 'Notes' } },
+    ...CATEGORIES.map(({ slug, title }) => ({
+      params: { slug },
+      props: { title },
+    })),
+    { params: { slug: 'notes' }, props: { title: 'Portfolio' } },
     ...notes.map((note) => ({
       params: { slug: note.id },
       props: { title: note.data.title },

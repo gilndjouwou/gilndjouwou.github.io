@@ -1,0 +1,30 @@
+---
+import { render } from 'astro:content';
+import NoteLayout from '@/layouts/NoteLayout.astro';
+import { CATEGORY_SLUGS } from '@/lib/categories';
+import { getNotes } from '@/lib/notes';
+
+export async function getStaticPaths() {
+  const entriesByCategory = await Promise.all(
+    CATEGORY_SLUGS.map(async (category) => [category, await getNotes(category)] as const),
+  );
+
+  return entriesByCategory.flatMap(([category, entries]) =>
+    entries.map((note, index) => ({
+      params: { category, slug: note.id },
+      props: {
+        note,
+        prev: entries[index - 1],
+        next: entries[index + 1],
+      },
+    })),
+  );
+}
+
+const { note, prev, next } = Astro.props;
+const { Content } = await render(note);
+---
+
+<NoteLayout frontmatter={note.data} image={`/og/${note.id}.png`} {prev} {next}>
+  <Content />
+</NoteLayout>

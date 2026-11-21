@@ -1,0 +1,54 @@
+---
+import { getNotes } from '@/lib/notes';
+import type { CategorySlug } from '@/lib/categories';
+
+interface Props {
+  category: CategorySlug;
+}
+
+const { category } = Astro.props;
+const notes = await getNotes(category);
+const notesByYear = Map.groupBy(notes, (note) => note.data.pubDate.getUTCFullYear());
+---
+
+{notes.length ? (
+  <ul class="years">
+    {[...notesByYear].map(([year, yearNotes]) => (
+      <li>
+        <h2>{year}</h2>
+        <ul>
+          {yearNotes.map((note) => (
+            <li>
+              <a href={`/${category}/${note.id}/`}>{note.data.title}</a>
+            </li>
+          ))}
+        </ul>
+      </li>
+    ))}
+  </ul>
+) : (
+  <p class="empty">Nothing published here yet.</p>
+)}
+
+<style>
+  ul {
+    display: grid;
+    gap: 0.5em;
+    padding: 0;
+    list-style: none;
+    hyphens: manual;
+  }
+
+  .years > li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 2ch;
+  }
+
+  h2,
+  .empty {
+    color: var(--theme-sub-text);
+    font-size: 1em;
+    font-weight: 400;
+  }
+</style>

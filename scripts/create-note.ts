@@ -17,6 +17,7 @@ const frontmatter = `---
 title: ${JSON.stringify(title)}
 pubDate: ${currentDate}
 description: ${JSON.stringify(description)}
+category: blog
 slug: ${slug}
 published: false
 ---
