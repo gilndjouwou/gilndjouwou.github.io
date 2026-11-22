@@ -1,6 +1,8 @@
 ---
 import { getNotes } from '@/lib/notes';
 import type { CategorySlug } from '@/lib/categories';
+import { formatBlogDate } from '@/lib/date';
+import { getReadingTime } from '@/lib/reading-time';
 
 interface Props {
   category: CategorySlug;
@@ -20,6 +22,11 @@ const notesByYear = Map.groupBy(notes, (note) => note.data.pubDate.getUTCFullYea
           {yearNotes.map((note) => (
             <li>
               <a href={`/${category}/${note.id}/`}>{note.data.title}</a>
+              {category === 'blog' && (
+                <span class="meta">
+                  {formatBlogDate(note.data.pubDate)} · {getReadingTime(note.body)} min read
+                </span>
+              )}
             </li>
           ))}
         </ul>
@@ -50,5 +57,11 @@ const notesByYear = Map.groupBy(notes, (note) => note.data.pubDate.getUTCFullYea
     color: var(--theme-sub-text);
     font-size: 1em;
     font-weight: 400;
+  }
+
+  .meta {
+    display: block;
+    color: var(--theme-sub-text);
+    font-size: 0.9em;
   }
 </style>

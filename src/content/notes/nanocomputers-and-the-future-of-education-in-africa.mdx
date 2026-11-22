@@ -2,9 +2,94 @@
 title: "Nanocomputers and the future of education in Africa"
 description: "Full article coming soon."
 category: blog
-pubDate: 2026-11-21T00:00:00Z
+pubDate: 2020-11-13T00:00:00Z
 position: 4
 published: true
 ---
 
-This article is a placeholder. Full content coming soon.
+import Embed from '@/components/Embed.astro';
+import PhotoGallery from '@/components/PhotoGallery.astro';
+import image001 from './assets/nanocomputers-and-the-future-of-education-in-africa/001.webp';
+import image002 from './assets/nanocomputers-and-the-future-of-education-in-africa/002.webp';
+import image003 from './assets/nanocomputers-and-the-future-of-education-in-africa/003.webp';
+import image004 from './assets/nanocomputers-and-the-future-of-education-in-africa/004.webp';
+import image005 from './assets/nanocomputers-and-the-future-of-education-in-africa/005.jpg';
+
+## Launched in the early 2010’s, nanocomputers are a new type of computing devices mostly used and revered by DIY aficionados. Their low cost and ease of use make them well suited to help evolve educational tools in Africa. But what can a nanocomputer do actually?
+
+<PhotoGallery
+  images={[
+    { src: image001, alt: 'A Raspberry Pi board between two hands on a blue background' },
+  ]}
+/>
+
+A nanocomputer is a cheaply priced device about the size of a credit card. Arduino, Raspberry Pi, Banana Pi, Beagleboard, Parallella… Many different models are available on the market, with similar technical specifications : 2Gb of RAM, 1.5GHz 64-bit CPU, Bluetooth,WiFi, USB 3.0, HDMI, Ethernet, micro SD port, etc. Despite these limited specs (akin to an entry level Android phone in 2020), from 2012 to late 2019, more than 30 millions Raspberry Pi units have been shipped, and more than 700 000 Arduino boards have been registered. Impressive numbers, but why would such technically limited machines be such best-sellers?
+
+When I was a high school student in Libreville in the early 2000s, we had a very limited access to computers. Our high school had approximately 30 outdated machines available for more than 5500 students, which wouldn’t guarantee you more than one hour of internet use per week if you were lucky. The administration admittedly couldn’t do any better due to lack of public funding, and it was evident to us that it wasn’t one of their priorities to improve that situation. Unlike the majority of the students around me, I was fortunate enough to have a computer at home, I’ve known my way around a computer since my early teens so contrary to many of my fellow students, I was not completely lost when we had homework requiring the use of a computer.
+
+Computer literacy is a first rate problem in many parts of Africa. From the [World bank's blog](https://blogs.worldbank.org/en/digital-development/africas-future-bright-and-digital) :
+
+>*“In Sub Saharan Africa, 230 million jobs will require digital skills by 2030. […] Only 50 percent of countries in Africa have ‘computer’ skills as part of their school curriculum, compared to 85 percent of countries globally. The companies surveyed in our report revealed a high demand for digital skills — and a skills shortage. Nearly 65 percent of the job vacancies that employers were trying to fill required at least basic digital skills. However, 20 percent of companies surveyed in Ghana said that they were forced to recruit internationally as they could not find the talent they needed locally. This must change.”*
+
+Thousands of students graduate high school every year without sufficient computer knowledge to perform ordinary tasks such as formatting a text document and write in a basic programming language. In a country like Gabon where the minimum salary is 150 000 FCFA (≈230€/$270), not many people can afford to own a computer at home, let alone a laptop for each student. I cannot count how many fellow country women and men I’ve seen arrive in France over the years and struggle with universities bring-your-own-device workflow. You need to check your grades ? Log into your student’s account on your PC. A professor/lecturer can’t make it to class ? We’ll have the class via video conference instead. That project you have to work on to pass your exams ? It must be done using a specialized software that all other students have been familiar with since French high school.
+
+Those situations lead to many students being surpassed and starting their freshman year with disadvantages, while their potential is not in question. No matter how willing they are to succeed, their level of computer literacy, if insufficient, will hinder their achievements in college.
+
+Across the African continent, smartphones get more affordable by the year and gain new users at a very steady pace. According to QZ, more than half of the smartphones sold in the fourth quarter of 2019 cost their owner less than $100. That makes for an interesting comparison with nanocomputers, with an average unit being priced within the $100-$150 bracket. Considering the wide array of possibilities they offer compared to a smartphone, purchasing one for your personal computing needs should be a no brainer, but as stated earlier, most people have never heard of nanocomputers. In fact, why should they know about nanocomputers, and what would they be useful for ? The answer to that last question is as cliché as it is accurate : a nanocomputer would be useful for almost anything you can think of.
+
+<PhotoGallery
+  images={[
+    { src: image002, alt: 'A Raspberry Pi and an Arduino Uno board side by side' },
+  ]}
+/>
+
+### An affordable and tiny desktop computer
+
+For basic tasks like word processing, internet browsing and checking your emails, a device like the Raspberry Pi is perfect for you. If you don’t purchase it as a bundle, you will need to add case to protect the motherboard, a mouse, a keyboard and connect it to a computer screen to have a functional device. The Pi can run several versions of the open source OS Linux, and it’s now even possible to run Windows 10 on some models, which allows you to run all the softwares you’re used to. This solution would be suitable for everyone on a budget who doesn’t need a lot of computing power.
+
+### A flexible device to experiment and create with
+
+Over the years, all sorts of projects based on Arduino and Raspberry Pi boards have been developed, from the very useful to totally demonstrative. There is the sensor alarm, the chess game with automated chess pieces, the robot version of Jackson Pollock… You can make your garage door text you in case you left it open, set up a retrogaming machine or build a magic mirror that displays the time, the weather and other informations.
+
+<PhotoGallery
+  images={[
+    { src: image003, alt: 'Three beet plants displayed on a wooden stand' },
+  ]}
+/>
+
+Keep in mind that these examples barely scrape the surface of what’s possible with nanocomputers, there is no shortage of DIY projects demonstrating the versatility of these machines. 
+
+### A cheap and highly capable education tool
+
+While their great modularity quickly made them a DIY practitioner's favorite, nano PCs were initially thought as educational tools, allowing students to experiment and create at a small cost. Nano PCs can be setup as fully functional personal computers, offering a user experience on par with what is offered by the industry’s leaders.
+In the region of Kuma, Togo, 75% of teachers had never used a computer when Dominique Laloux joined his Togolese friends to launch the Kuma Computer Center, with the intention of making it available for the students and teachers of neighboring schools. Today, the 200 students of the nearest middle school use this Raspberry Pi-powered computer room on a daily basis. From the [Raspberry Pi blog](https://www.raspberrypi.com/news/the-first-raspberry-pi-computer-room-in-togo/) :
+
+> *The initial focus is on teaching the students basic computer literacy, and the team chose the Raspberry Pi based on its low initial cost, its anticipated low maintenance costs, its low power consumption and its use of Open Source software.*
+
+
+<PhotoGallery
+  images={[
+    { src: image004, alt: 'A computer lab setup with two monitors, keyboard and mouse' },
+  ]}
+/>
+
+The Raspberry Pi breaks the cost barrier that previously made it impossible for rural areas to have access to recent tech. The affordability of these devices makes them incredibly suitable tools to increase computer literacy in Africa. Also, their versatility is not to be underestimated. Imagine being able to browse the entirety of Wikipedia or read any book from the Gutenberg project’s library anywhere in the world, with or without internet access. With a Raspberry Pi unit set up as a local server, students in the most remote rural school would have an unprecedented access to information. Chris Chapman’s WikiPi Project narrowed in down to a few sources, but virtually any dataset could be made available in that manner, making internet access a lesser factor in access to educational resources.
+
+Other initiatives have a more practical approach to the use of nano PCs. The Afrimakers project, launched in 2013, vows to “empower makers in Africa to develop sustainable projects and use making to solve local challenges and create an exchange of best practices between locals.” In practice, this means providing Arduinos and Raspberry Pi’s for underprivileged children and build a network of independent ‘makers labs’ across the continent where kids can express their creativity while developing useful skills.
+
+<Embed provider="youtube" id="k5-7D-rQqYY" title="Hackidemia Nigeria" />
+
+Despite reaching only a third of its crowdfunding campaign’s goal, the Afrimakers project was able to train more than 100 mentors in 10 different African countries, organize workshops for more than 1000 children, give fellowships to 30 mentors and provide every maker with the necessary tools for proper training. Looking at these results, achieved in a short amount of time with relatively limited finances, it’s difficult not to wonder what could be accomplished with a few years of funding towards similar projects.
+
+### Today’s technology for a better tomorrow
+
+The rapid growth of mobile Internet in Africa over the last decade could be attributed to three common characteristics of smartphones and nanocomputers: low access price, low energy consumption and an inherent mobile aspect facilitating their adoption. Considering their adaptability and wide range of possible uses, whether for personal or business needs, education or entertainment, I am convinced that a “nanocomputer revolution” in Africa could set off a chain reaction that will fundamentally improve the daily lives of people on the continent.
+
+The democratization of modern computing devices’ use across the continent would open the path for new and groundbreaking projects that previously would have seemed impossible to achieve. More importantly, at a time when many African nations are plagued by seemingly intractable ills, to put such a powerful and multi-faceted tool at their disposal would allow their people to progressively take back control of their destiny and finally forge the future they want for their children.
+
+<PhotoGallery
+  images={[
+    { src: image005, alt: 'A compact white and pink keyboard computer' },
+  ]}
+/>
+

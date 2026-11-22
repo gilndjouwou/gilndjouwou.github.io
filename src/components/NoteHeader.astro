@@ -1,26 +1,44 @@
 ---
 import { CATEGORY_LABELS } from '@/lib/categories';
 import type { CategorySlug } from '@/lib/categories';
-import { formatDate } from '@/lib/date';
+import { formatBlogDate, formatDate } from '@/lib/date';
 
 interface Props {
   title: string;
   category: CategorySlug;
   pubDate: Date;
+  displayDate?: string;
   updatedDate?: Date;
+  readingTime?: number;
 }
 
-const { title, category, pubDate, updatedDate } = Astro.props;
+const { title, category, pubDate, displayDate, updatedDate, readingTime } = Astro.props;
+const formattedDate = displayDate ?? (category === 'blog' ? formatBlogDate(pubDate) : formatDate(pubDate));
+const formattedUpdatedDate = updatedDate
+  ? category === 'blog'
+    ? formatBlogDate(updatedDate)
+    : formatDate(updatedDate)
+  : undefined;
 ---
 
 <header>
   <p class="meta">
     <a href={`/${category}/`}>{CATEGORY_LABELS[category]}</a>
     <span aria-hidden="true"> / </span>
-    <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+    {displayDate ? (
+      <span>{displayDate}</span>
+    ) : (
+      <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+    )}
+    {category === 'blog' && readingTime !== undefined && (
+      <>
+        <span aria-hidden="true"> · </span>
+        <span>{readingTime} min read</span>
+      </>
+    )}
   </p>
   <h1>{title}</h1>
-  {updatedDate && <p class="updated">Updated {formatDate(updatedDate)}</p>}
+  {formattedUpdatedDate && <p class="updated">Updated {formattedUpdatedDate}</p>}
 </header>
 
 <style>

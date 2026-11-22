@@ -5,15 +5,16 @@ import NoteHeader from '@/components/NoteHeader.astro';
 import NoteNav from '@/components/NoteNav.astro';
 
 const {
-  frontmatter: { title, description, category, pubDate, updatedDate },
+  frontmatter: { title, description, category, pubDate, displayDate, updatedDate },
   image,
   prev,
   next,
+  readingTime,
 } = Astro.props;
 ---
 
 <BaseLayout headProps={{ title, description, image }}>
-  <NoteHeader {title} {category} {pubDate} {updatedDate} />
+  <NoteHeader {title} {category} {pubDate} {displayDate} {updatedDate} {readingTime} />
 
   <article>
     <slot />

@@ -14,6 +14,7 @@ const notes = defineCollection({
     description: z.string(),
     category: z.enum(CATEGORY_SLUGS),
     pubDate: z.coerce.date(),
+    displayDate: z.string().optional(),
     position: z.number().int().optional(),
     updatedDate: z.coerce.date().optional(),
     published: z.boolean().default(false),

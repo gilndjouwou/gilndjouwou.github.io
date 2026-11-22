@@ -83,10 +83,23 @@ body {
   padding: 7em;
 }
 
+.photo-gallery,
+.note-nav,
+.embed.youtube {
+  width: 72em;
+  max-width: min(72em, calc(100vw - 14em));
+}
+
 @media (width <= 480px) {
   body {
     max-width: 100%;
     padding: 3em 1em 1em;
+  }
+
+  .photo-gallery,
+  .note-nav,
+  .embed.youtube {
+    max-width: calc(100vw - 2em);
   }
 }
 
