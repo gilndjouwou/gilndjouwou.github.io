@@ -17,6 +17,7 @@ const notes = defineCollection({
     displayDate: z.string().optional(),
     position: z.number().int().optional(),
     updatedDate: z.coerce.date().optional(),
+    previewImage: z.string().nullable().optional(),
     published: z.boolean().default(false),
     archived: z.boolean().default(false),
   }),

@@ -36,4 +36,9 @@ function formatBlogDate(date: Date): string {
   return `${month} ${day}${suffix} ${year}`;
 }
 
-export { formatBlogDate, formatDate };
+function formatBlogMonthYear(date: Date): string {
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  return `${month}-${date.getUTCFullYear()}`;
+}
+
+export { formatBlogDate, formatBlogMonthYear, formatDate };

@@ -18,7 +18,7 @@ const { title } = Astro.props;
   )}
 
   {title !== SITE_TITLE && (
-    <nav aria-label="Portfolio categories">
+    <nav aria-label="Site categories">
       {CATEGORIES.map(({ slug, title: categoryTitle }) => (
         <a href={`/${slug}/`}>{categoryTitle}</a>
       ))}

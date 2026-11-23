@@ -31,6 +31,7 @@ description: ${JSON.stringify(description)}
 category: blog
 slug: ${slug}
 published: false
+previewImage: ./assets/${slug}/img.jpg
 ---
 
 ## Subtitle
