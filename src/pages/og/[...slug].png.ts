@@ -17,7 +17,7 @@ export const getStaticPaths = (async () => {
       params: { slug },
       props: { title },
     })),
-    { params: { slug: 'notes' }, props: { title: 'Selected Works' } },
+    { params: { slug: 'notes' }, props: { title: 'Portfolio' } },
     ...notes.map((note) => ({
       params: { slug: note.id },
       props: { title: note.data.title },

@@ -8,7 +8,7 @@ export const CATEGORY_SLUGS = [
 export type CategorySlug = (typeof CATEGORY_SLUGS)[number];
 
 export const CATEGORY_LABELS: Record<CategorySlug, string> = {
-  portfolio: 'Selected Works',
+  portfolio: 'Portfolio',
   blog: 'Blog',
   'work-in-progress': 'Work in progress',
   'shelved-ideas': 'Forever Shelved',
