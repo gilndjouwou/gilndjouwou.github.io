@@ -1,0 +1,66 @@
+<div class="clock" data-time-clocks>
+  <p>
+    Time at Gil's: <time data-paris-time>--:--</time>
+    <span class="separator" aria-hidden="true">·</span>
+    Time where you are: <time data-local-time>--:--</time>
+  </p>
+</div>
+
+<script>
+  const clocks = document.querySelector<HTMLElement>('[data-time-clocks]');
+
+  if (clocks) {
+    const parisTime = clocks.querySelector<HTMLTimeElement>('[data-paris-time]');
+    const localTime = clocks.querySelector<HTMLTimeElement>('[data-local-time]');
+
+    if (!parisTime || !localTime) {
+      throw new Error('Homepage clock elements are missing.');
+    }
+
+    const parisFormatter = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/Paris',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    });
+    const localFormatter = new Intl.DateTimeFormat('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+    });
+
+    const updateTimes = () => {
+      const now = new Date();
+      const timestamp = now.toISOString();
+
+      parisTime.dateTime = timestamp;
+      parisTime.textContent = parisFormatter.format(now);
+      localTime.dateTime = timestamp;
+      localTime.textContent = localFormatter.format(now);
+    };
+
+    const updateOnMinute = () => {
+      const now = new Date();
+      window.setTimeout(() => {
+        updateTimes();
+        updateOnMinute();
+      }, 60_000 - (now.getSeconds() * 1_000 + now.getMilliseconds()));
+    };
+
+    updateTimes();
+    updateOnMinute();
+  }
+</script>
+
+<style>
+  .clock {
+    margin-top: 0.5em;
+    color: var(--theme-sub-text);
+    font-size: 0.85em;
+    line-height: 1.5;
+  }
+
+  .separator {
+    margin-inline: 0.5em;
+  }
+</style>
