@@ -85,6 +85,132 @@ function getHomeEntries(slug: CategorySlug, entries: Awaited<ReturnType<typeof g
   <Footer slot="footer" />
 </BaseLayout>
 
+<script>
+  const previewMedia = window.matchMedia(
+    '(hover: hover) and (pointer: fine) and (min-width: 1000px)',
+  );
+  const previewMargin = 16;
+  const previewContentGap = 32;
+  const minimumPositionSeparations = [48, 32, 24, 16, 8, 0];
+  let highestPreviewZIndex = 1;
+  const mainContent = document.querySelector<HTMLElement>('main');
+  if (!mainContent) throw new Error('Homepage content container is missing.');
+
+  const rotationOptions = Array.from({ length: 62 }, (_, index) => {
+    const magnitude = (20 + (index % 31)) / 10;
+    return index < 31 ? -magnitude : magnitude;
+  });
+  const getVisiblePreviews = () =>
+    Array.from(document.querySelectorAll<HTMLImageElement>('.entry-preview.is-visible'));
+  const getPreviewPosition = (preview: HTMLImageElement): [number, number] => [
+    Number.parseFloat(preview.style.getPropertyValue('--preview-offset-x')),
+    Number.parseFloat(preview.style.getPropertyValue('--preview-offset-y')),
+  ];
+
+  const getPositionBounds = (preview: HTMLImageElement) => {
+    preview.style.setProperty('--preview-offset-x', '0px');
+    preview.style.setProperty('--preview-offset-y', '0px');
+
+    const bounds = preview.getBoundingClientRect();
+    return {
+      minX: Math.max(previewMargin, mainContent.getBoundingClientRect().right + previewContentGap) -
+        bounds.left,
+      maxX: window.innerWidth - previewMargin - bounds.right,
+      minY: previewMargin - bounds.top,
+      maxY: window.innerHeight - previewMargin - bounds.bottom,
+    };
+  };
+
+  const assignUniquePosition = (preview: HTMLImageElement) => {
+    const occupiedPositions =
+      getVisiblePreviews()
+        .filter((other) => other !== preview)
+        .map(getPreviewPosition);
+    const bounds = getPositionBounds(preview);
+        const horizontalOffsets = Array.from(
+          { length: Math.floor(bounds.maxX) - Math.ceil(bounds.minX) + 1 },
+          (_, index) => Math.ceil(bounds.minX) + index,
+        );
+        const verticalOffsets = Array.from(
+          { length: Math.floor(bounds.maxY) - Math.ceil(bounds.minY) + 1 },
+          (_, index) => Math.ceil(bounds.minY) + index,
+        );
+        const positionCandidates: [number, number][] = [];
+
+        for (const offsetX of horizontalOffsets) {
+          for (const offsetY of verticalOffsets) {
+            positionCandidates.push([offsetX, offsetY]);
+          }
+    }
+        const startIndex = Math.floor(Math.random() * positionCandidates.length);
+
+        for (const separation of minimumPositionSeparations) {
+          for (let index = 0; index < positionCandidates.length; index += 1) {
+            const candidate = positionCandidates[(startIndex + index) % positionCandidates.length];
+            if (!candidate) continue;
+
+            const isSeparated = occupiedPositions.every(
+              ([otherX, otherY]) =>
+                Math.hypot(candidate[0] - otherX, candidate[1] - otherY) > separation,
+            );
+
+            if (!isSeparated) continue;
+
+            preview.style.setProperty('--preview-offset-x', `${candidate[0]}px`);
+            preview.style.setProperty('--preview-offset-y', `${candidate[1]}px`);
+            return;
+          }
+        }
+
+        throw new Error('Unable to assign a unique safe homepage preview position.');
+  };
+
+  const assignUniqueRotation = (preview: HTMLImageElement) => {
+    const occupiedRotations = new Set(
+      getVisiblePreviews()
+        .filter((other) => other !== preview)
+        .map((other) => other.dataset.rotation),
+    );
+    const availableRotations = rotationOptions.filter(
+      (rotation) => !occupiedRotations.has(String(rotation)),
+    );
+    const rotation = availableRotations[Math.floor(Math.random() * availableRotations.length)];
+
+    if (rotation === undefined) {
+      throw new Error('Unable to assign a unique homepage preview rotation.');
+    }
+
+    preview.dataset.rotation = String(rotation);
+    preview.style.setProperty('--preview-rotation', `${rotation}deg`);
+  };
+
+  document.querySelectorAll<HTMLAnchorElement>('.entry-link').forEach((link) => {
+    const preview = link.querySelector<HTMLImageElement>('.entry-preview');
+    if (!preview) return;
+
+    const showPreview = () => {
+      if (!previewMedia.matches) return;
+
+      if (!preview.classList.contains('is-visible')) {
+        assignUniqueRotation(preview);
+        preview.classList.add('is-visible');
+        assignUniquePosition(preview);
+      }
+
+      preview.style.zIndex = String(++highestPreviewZIndex);
+    };
+
+    link.addEventListener('pointerenter', showPreview);
+    link.addEventListener('focusin', showPreview);
+  });
+
+  window.addEventListener('resize', () => {
+    if (!previewMedia.matches) return;
+
+    getVisiblePreviews().forEach(assignUniquePosition);
+  });
+</script>
+
 <style>
   section {
     margin-top: 3em;
@@ -130,21 +256,20 @@ function getHomeEntries(slug: CategorySlug, entries: Awaited<ReturnType<typeof g
   @media (hover: hover) and (pointer: fine) and (min-width: 1000px) {
     .entry-preview {
       position: fixed;
-      top: 50%;
-      left: calc(60em + 2rem);
+      left: calc(60em + 2rem + var(--preview-offset-x, 0px));
+      top: calc(50% + var(--preview-offset-y, 0px));
       width: min(32vw, 420px, calc(100vw - 60em - 5rem));
       height: auto;
       max-height: 72vh;
       object-fit: contain;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(-50%);
+      transform: translateY(-50%) rotate(var(--preview-rotation, 0deg));
       transition: opacity 150ms ease;
       z-index: 1;
     }
 
-    .entry-link:hover .entry-preview,
-    .entry-link:focus-visible .entry-preview {
+    .entry-preview.is-visible {
       display: block;
       opacity: 1;
     }

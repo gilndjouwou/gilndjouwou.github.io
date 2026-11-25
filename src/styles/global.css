@@ -30,9 +30,6 @@
   --color-klein-light: #1f3fa3;
   --color-klein-gray: #aaa597;
   --color-klein-white: #ddd8cc;
-}
-
-:root {
   --theme-bg: light-dark(var(--color-sky), var(--color-klein));
   --theme-text: light-dark(var(--color-sky-ink), var(--color-klein-white));
   --theme-sub-text: light-dark(var(--color-sky-gray), var(--color-klein-gray));

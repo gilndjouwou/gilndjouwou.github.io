@@ -1,4 +1,4 @@
-const dateFormat = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' });
+const dateFormat = new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' });
 const blogDateFormat = new Intl.DateTimeFormat('en-US', {
   month: 'long',
   day: 'numeric',

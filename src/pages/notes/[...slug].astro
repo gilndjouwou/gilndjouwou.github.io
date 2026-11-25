@@ -2,7 +2,10 @@
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const notes = await getCollection('notes');
+  const notes = await getCollection(
+    'notes',
+    ({ data }) => data.published || import.meta.env.DEV,
+  );
   return notes.map((note) => ({
     params: { slug: note.id },
     props: { note },

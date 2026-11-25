@@ -3,12 +3,22 @@ import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 interface Props {
-  images: { src: ImageMetadata; alt: string }[];
+  images: { src: ImageMetadata; alt: string; preserveAnimation?: boolean }[];
 }
 
 const { images } = Astro.props;
 const galleryImages = await Promise.all(
-  images.map(async ({ src, alt }) => {
+  images.map(async ({ src, alt, preserveAnimation }) => {
+    if (preserveAnimation) {
+      return {
+        thumbnail: src.src,
+        width: src.width,
+        height: src.height,
+        fullSize: src.src,
+        alt,
+      };
+    }
+
     const [thumbnail, fullSize] = await Promise.all([
       getImage({ src, width: 1200, format: 'webp' }),
       getImage({ src, format: 'webp' }),
